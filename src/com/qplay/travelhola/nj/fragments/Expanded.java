@@ -1,6 +1,7 @@
 package com.qplay.travelhola.nj.fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -62,6 +63,19 @@ public class Expanded extends Activity {
 		String gate;
 		String airline;
 		
+		ProgressDialog pd;
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pd = new ProgressDialog(Expanded.this);
+			pd.setMessage("Loading");
+			pd.setTitle("Please Wait");
+			pd.setCancelable(true);
+			pd.show();
+		}
+		
+		
 		@Override
 		protected String doInBackground(String... params) {
 			return new AsyncFunctions().getFlightItinerary(params[0]);
@@ -86,6 +100,8 @@ public class Expanded extends Activity {
 			
 			to_st.setText(to.substring(0, 3).toUpperCase());
 			from_st.setText(from.substring(0, 3).toUpperCase());
+			
+			pd.dismiss();
 			
 			
 			weather.setOnClickListener(new OnClickListener() {

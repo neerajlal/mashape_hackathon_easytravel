@@ -1,6 +1,7 @@
 package com.qplay.travelhola.nj.fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.InflateException;
@@ -19,6 +20,8 @@ public class Weather extends Activity {
 	ImageView imgWeather;
 	
 	String loc=null;
+	
+	
 	
 	
 	@Override
@@ -51,6 +54,18 @@ public class Weather extends Activity {
 		String low;
 		
 		String cond;
+		
+		ProgressDialog pd;
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pd = new ProgressDialog(Weather.this);
+			pd.setMessage("Loading");
+			pd.setTitle("Please Wait");
+			pd.setCancelable(true);
+			pd.show();
+		}
 
 		
 		
@@ -72,6 +87,10 @@ public class Weather extends Activity {
 			txtLoc.setText(loc);
 			
 			txtWeather.setText(cond);
+			
+			pd.dismiss();
+			
+			
 
 		}
 
